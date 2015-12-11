@@ -43,6 +43,7 @@
     <Compile Include="AggregateRoot.cs" />
     <Compile Include="DomainEvent.cs" />
     <Compile Include="IDomainEvent.cs" />
+    <Compile Include="IDomainRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
