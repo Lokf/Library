@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lokf.Library.Infrastructure
 {
-    interface IDomainRepository
+    public interface IDomainRepository
     {
     }
 }
