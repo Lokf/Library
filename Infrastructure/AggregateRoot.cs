@@ -90,14 +90,19 @@
         {
             var eventType = @event.GetType();
 
-            Action<IDomainEvent> eventHandler;
+            @event.Version = GetNextVersion();
 
+            Action<IDomainEvent> eventHandler;
+            
             if (_eventHandlers.TryGetValue(eventType, out eventHandler))
             {
                 eventHandler(@event);
-            }
+            }            
+        }
 
-            Version++;
+        private int GetNextVersion()
+        {
+            return ++Version;
         }
     }
 }
