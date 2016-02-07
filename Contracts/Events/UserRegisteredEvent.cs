@@ -1,4 +1,4 @@
-﻿namespace Lokf.Library.User.Events
+﻿namespace Lokf.Library.Contracts.Events
 {
     using Infrastructure;
     using System;

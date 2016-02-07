@@ -1,11 +1,12 @@
 ﻿namespace Lokf.Library.Users
 {
     using Infrastructure;
-    using Events;
+    using Contracts.Events;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Exceptions;
+    using Lendings;
+    using Services;
 
     /// <summary>
     /// The aggregate root of the user aggregate. Provides functionality for managing users, 
@@ -61,6 +62,16 @@
             var paymentMadeEvent = new PaymentMadeEvent(AggregateId, amount, date);
 
             RaiseEvent(paymentMadeEvent);
+        }
+
+        public Lending LendBook(Guid lendingId, Guid bookId, DateTime lendDate, IDueDateCalculator dueDataCalculator)
+        {
+            if (IsInDebt())
+            {
+                throw new Exception("Cant borrow when i debt");
+            }
+
+            return Lending.LendBook(lendingId, AggregateId, bookId, lendDate, dueDataCalculator);
         }
 
         private decimal OutstandingDebt()

@@ -7,7 +7,7 @@
     <ProjectGuid>{0F7447A3-C82A-4FA0-9CAE-FD2272F8717D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lokf.Library.Lending</RootNamespace>
+    <RootNamespace>Lokf.Library.Lendings</RootNamespace>
     <AssemblyName>Lending</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventHandlers\BookReturnedEventHandler.cs" />
+    <Compile Include="Exceptions\BookAlreadyReturnedException.cs" />
     <Compile Include="Lending.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -48,7 +50,16 @@
       <Project>{00bb084f-e66d-40f0-abfd-4b3216c5a22c}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{6ccacd6d-2bf6-41f3-9e3c-a1ba438f1d67}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{9a2e0ee5-9fe8-4637-8710-f71014c8d512}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

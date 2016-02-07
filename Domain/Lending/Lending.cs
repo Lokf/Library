@@ -1,14 +1,8 @@
 ﻿namespace Lokf.Library.Lendings
 {
     using Infrastructure;
-    using Events;
+    using Contracts.Events;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Exceptions;
-    using Utils;
     using Services;
 
     public sealed class Lending : AggregateRoot

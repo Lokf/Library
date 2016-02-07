@@ -7,7 +7,7 @@
     <ProjectGuid>{FE75E2C3-2330-45E5-94A9-BF2722CD9D41}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lokf.Library.User</RootNamespace>
+    <RootNamespace>Lokf.Library.Users</RootNamespace>
     <AssemblyName>User</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\UserRegisteredEvent.cs" />
+    <Compile Include="Exceptions\TooLargePaymentException.cs" />
+    <Compile Include="Fine.cs" />
     <Compile Include="LibraryCard.cs" />
+    <Compile Include="Payment.cs" />
     <Compile Include="PersonalIdentityNumber.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,7 +53,12 @@
       <Project>{00bb084f-e66d-40f0-abfd-4b3216c5a22c}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{6ccacd6d-2bf6-41f3-9e3c-a1ba438f1d67}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

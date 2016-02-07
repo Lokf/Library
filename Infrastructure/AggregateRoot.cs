@@ -2,16 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Base class for all aggregate roots. Provides functionality for event sourcing,
-    /// rebuilding an aggregate from previous events and rasing new events.
+    /// i.e. rebuilding an aggregate from previous events and rasing new events.
     /// </summary>
-    public abstract class AggregateRoot
+    public abstract class AggregateRoot : IEventSourced, IRootEntity
     {
         private readonly Dictionary<Type, Action<IDomainEvent>> _eventHandlers;
 
         private readonly List<IDomainEvent> _uncommittedEvents;
+
+        private int _eventVersion;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AggregateRoot"/> class.
@@ -36,8 +39,11 @@
         /// </summary>
         public IEnumerable<IDomainEvent> UncommittedEvents
         {
-            get { return _uncommittedEvents; }
-        }
+            get
+            {
+                return _uncommittedEvents;
+            }
+        }                
 
         /// <summary>
         /// Gets the current version of the aggregate.
@@ -62,6 +68,8 @@
             {
                 ApplyEvent(@event);
             }
+
+            Version = history.Count();
         }
 
         /// <summary>
@@ -75,6 +83,16 @@
         }
 
         /// <summary>
+        /// Registers a handler for an event type.
+        /// </summary>
+        /// <typeparam name="TEvent">The event type.</typeparam>
+        /// <param name="handler">The event handler.</param>
+        void IRootEntity.Handles<TEvent>(Action<TEvent> handler)
+        {
+            Handles(handler);
+        }
+
+        /// <summary>
         /// Raises an event. The event is applied to the aggregate using the appropriate event handler
         /// and added to the list of uncommitted events.
         /// </summary>
@@ -84,13 +102,13 @@
             ApplyEvent(@event);
 
             _uncommittedEvents.Add(@event);
-        }
+        }      
 
         private void ApplyEvent(IDomainEvent @event)
         {
             var eventType = @event.GetType();
 
-            @event.Version = GetNextVersion();
+            @event.Version = ++_eventVersion;
 
             Action<IDomainEvent> eventHandler;
             
@@ -98,11 +116,6 @@
             {
                 eventHandler(@event);
             }            
-        }
-
-        private int GetNextVersion()
-        {
-            return ++Version;
         }
     }
 }
