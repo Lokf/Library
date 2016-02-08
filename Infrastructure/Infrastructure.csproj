@@ -56,6 +56,8 @@
     <Compile Include="IEventStore.cs" />
     <Compile Include="IEventStoreUnitOfWork.cs" />
     <Compile Include="InMemoryEventStore.cs" />
+    <Compile Include="IQuery.cs" />
+    <Compile Include="IQueryHandler.cs" />
     <Compile Include="IRootEntity.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

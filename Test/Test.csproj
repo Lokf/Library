@@ -98,10 +98,6 @@
       <Project>{00bb084f-e66d-40f0-abfd-4b3216c5a22c}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{9a2e0ee5-9fe8-4637-8710-f71014c8d512}</Project>
-      <Name>Utils</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

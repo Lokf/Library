@@ -51,6 +51,8 @@
     <Compile Include="User\Payment.cs" />
     <Compile Include="User\PersonalIdentityNumber.cs" />
     <Compile Include="User\User.cs" />
+    <Compile Include="Utils\DateProvider.cs" />
+    <Compile Include="Utils\IDateProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
@@ -60,10 +62,6 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{00bb084f-e66d-40f0-abfd-4b3216c5a22c}</Project>
       <Name>Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{9a2e0ee5-9fe8-4637-8710-f71014c8d512}</Project>
-      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -10,7 +10,7 @@
         /// <summary>
         /// Handles the event.
         /// </summary>
-        /// <param name="command">The event to handle.</param>
-        void Handle(TEvent command);
+        /// <param name="event">The event to handle.</param>
+        void Handle(TEvent @event);
     }
 }
