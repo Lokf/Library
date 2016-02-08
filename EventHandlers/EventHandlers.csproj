@@ -52,7 +52,7 @@
       <Project>{00bb084f-e66d-40f0-abfd-4b3216c5a22c}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ReportingRepositories\ReportingCaches.csproj">
+    <ProjectReference Include="..\ReportingCaches\ReportingCaches.csproj">
       <Project>{ffa7a84d-a912-4664-96d0-28bf8fc05032}</Project>
       <Name>ReportingCaches</Name>
     </ProjectReference>

@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandHandlers", "CommandH
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reporting", "Reporting", "{F85E0E84-AF69-4D91-BB0E-25A639F79183}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportingCaches", "ReportingRepositories\ReportingCaches.csproj", "{FFA7A84D-A912-4664-96D0-28BF8FC05032}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportingCaches", "ReportingCaches\ReportingCaches.csproj", "{FFA7A84D-A912-4664-96D0-28BF8FC05032}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHandlers", "EventHandlers\EventHandlers.csproj", "{5ECCAE3E-604D-40FF-A01B-6358903E2B96}"
 EndProject
