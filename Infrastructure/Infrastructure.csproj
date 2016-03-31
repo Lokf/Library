@@ -42,11 +42,14 @@
   <ItemGroup>
     <Compile Include="AggregateNotFoundException.cs" />
     <Compile Include="AggregateRoot.cs" />
+    <Compile Include="ChangeTracker.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="DomainEvent.cs" />
     <Compile Include="DomainRepository.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EventStoreUnitOfWork.cs" />
+    <Compile Include="IChangeTracker.cs" />
+    <Compile Include="IChangeTracker2.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="ICommandHandler.cs" />
     <Compile Include="IDomainEvent.cs" />
@@ -54,7 +57,6 @@
     <Compile Include="IEventHandler.cs" />
     <Compile Include="IEventSourced.cs" />
     <Compile Include="IEventStore.cs" />
-    <Compile Include="IEventStoreUnitOfWork.cs" />
     <Compile Include="InMemoryEventStore.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="IQueryHandler.cs" />

@@ -1,5 +1,5 @@
 ﻿namespace Lokf.Library.Contracts.Events
-{ 
+{
     using Infrastructure;
     using System;
 
@@ -17,12 +17,12 @@
             DueDate = dueDate;
         }
 
-        public Guid UserId { get; }
-
         public Guid BookId { get; }
+
+        public DateTime DueDate { get; }
 
         public DateTime LendDate { get; }
 
-        public DateTime DueDate { get; }
+        public Guid UserId { get; }
     }
 }

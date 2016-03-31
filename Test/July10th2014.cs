@@ -1,7 +1,7 @@
 ﻿namespace Lokf.Library.Test
 {
-    using Utils;
     using System;
+    using Utils;
 
     public class July10th2014 : IDateProvider
     {

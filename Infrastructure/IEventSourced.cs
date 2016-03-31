@@ -10,6 +10,11 @@
     public interface IEventSourced
     {
         /// <summary>
+        /// The aggregate ID.
+        /// </summary>
+        Guid AggregateId { get; }
+
+        /// <summary>
         /// Gets the uncommitted event.
         /// </summary>
         IEnumerable<IDomainEvent> UncommittedEvents { get; }
@@ -20,19 +25,14 @@
         int Version { get; }
 
         /// <summary>
+        /// Clears the uncommitted events, performed when the uncommitted events have been committed.
+        /// </summary>
+        void ClearUncommittedEvents();
+
+        /// <summary>
         /// Loads an event sourced object to its current state by replaying the historical events.
         /// </summary>
         /// <param name="history"></param>
         void LoadFromHistory(IEnumerable<IDomainEvent> history);
-
-        /// <summary>
-        /// The aggregate ID.
-        /// </summary>
-        Guid AggregateId { get; }
-
-        /// <summary>
-        /// Clears the uncommitted events, performed when the uncommitted events have been committed.
-        /// </summary>
-        void ClearUncommittedEvents();
     }
 }

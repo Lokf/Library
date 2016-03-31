@@ -8,25 +8,21 @@
     {
         public TooLargePaymentException()
         {
-
         }
 
         public TooLargePaymentException(string message)
-            :base(message)
+            : base(message)
         {
-
         }
 
         public TooLargePaymentException(string message, Exception inner)
             : base(message, inner)
         {
-
         }
 
         protected TooLargePaymentException(SerializationInfo info, StreamingContext context)
-            : base (info, context)
+            : base(info, context)
         {
-
         }
     }
 }

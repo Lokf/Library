@@ -43,7 +43,7 @@
             {
                 return _uncommittedEvents;
             }
-        }                
+        }
 
         /// <summary>
         /// Gets the current version of the aggregate.
@@ -56,6 +56,16 @@
         public void ClearUncommittedEvents()
         {
             _uncommittedEvents.Clear();
+        }
+
+        /// <summary>
+        /// Registers a handler for an event type.
+        /// </summary>
+        /// <typeparam name="TEvent">The event type.</typeparam>
+        /// <param name="handler">The event handler.</param>
+        void IRootEntity.Handles<TEvent>(Action<TEvent> handler)
+        {
+            Handles(handler);
         }
 
         /// <summary>
@@ -83,16 +93,6 @@
         }
 
         /// <summary>
-        /// Registers a handler for an event type.
-        /// </summary>
-        /// <typeparam name="TEvent">The event type.</typeparam>
-        /// <param name="handler">The event handler.</param>
-        void IRootEntity.Handles<TEvent>(Action<TEvent> handler)
-        {
-            Handles(handler);
-        }
-
-        /// <summary>
         /// Raises an event. The event is applied to the aggregate using the appropriate event handler
         /// and added to the list of uncommitted events.
         /// </summary>
@@ -102,7 +102,7 @@
             ApplyEvent(@event);
 
             _uncommittedEvents.Add(@event);
-        }      
+        }
 
         private void ApplyEvent(IDomainEvent @event)
         {
@@ -111,11 +111,11 @@
             @event.Version = ++_eventVersion;
 
             Action<IDomainEvent> eventHandler;
-            
+
             if (_eventHandlers.TryGetValue(eventType, out eventHandler))
             {
                 eventHandler(@event);
-            }            
+            }
         }
     }
 }

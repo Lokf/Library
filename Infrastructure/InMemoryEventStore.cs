@@ -3,11 +3,10 @@
     using System;
     using System.Collections.Generic;
 
-    public class InMemoryEventStore : IEventStore 
+    public class InMemoryEventStore : IEventStore
     {
-        private readonly Dictionary<Guid, List<IDomainEvent>> _eventStore = new Dictionary<Guid, List<IDomainEvent>>();
-
         private readonly List<IDomainEvent> _changes = new List<IDomainEvent>();
+        private readonly Dictionary<Guid, List<IDomainEvent>> _eventStore = new Dictionary<Guid, List<IDomainEvent>>();
 
         public InMemoryEventStore(IEnumerable<IDomainEvent> events)
         {
@@ -28,6 +27,35 @@
             }
         }
 
+        public void BeginTransaction()
+        {
+        }
+
+        public void CommitTransaction()
+        {
+        }
+
+        public IEnumerable<IDomainEvent> GetDomainEventsByAggregateId(Guid aggregateId)
+        {
+            List<IDomainEvent> aggregate;
+
+            if (_eventStore.TryGetValue(aggregateId, out aggregate))
+            {
+                return aggregate;
+            }
+
+            throw new AggregateNotFoundException();
+        }
+
+        public IReadOnlyCollection<IDomainEvent> PeekChanges()
+        {
+            return _changes;
+        }
+
+        public void RollbackTransaction()
+        {
+        }
+
         public void SaveDomainEvents(Guid aggregateId, IEnumerable<IDomainEvent> events, int expectedVersion)
         {
             List<IDomainEvent> aggregate;
@@ -39,7 +67,7 @@
                     throw new Exception();
                 }
 
-                aggregate.AddRange(events);                
+                aggregate.AddRange(events);
             }
             else
             {
@@ -54,38 +82,6 @@
             }
 
             _changes.AddRange(events);
-        }
-
-        public IEnumerable<IDomainEvent> GetDomainEventsByAggregateId(Guid aggregateId)
-        {
-            List<IDomainEvent> aggregate;
-            
-            if (_eventStore.TryGetValue(aggregateId, out aggregate))
-            {
-                return aggregate;
-            }
-
-            throw new AggregateNotFoundException();
-        }
-
-        public void BeginTransaction()
-        {
-
-        }
-
-        public void CommitTransaction()
-        {
-
-        }
-
-        public void RollbackTransaction()
-        {
-
-        }
-
-        public IReadOnlyCollection<IDomainEvent> PeekChanges()
-        {
-            return _changes;
         }
     }
 }

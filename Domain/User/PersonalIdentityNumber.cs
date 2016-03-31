@@ -62,7 +62,7 @@
             if (string.IsNullOrWhiteSpace(personalIdentityNumber))
             {
                 return false;
-            }            
+            }
 
             var temp = new PersonalIdentityNumber(personalIdentityNumber);
 
@@ -108,7 +108,7 @@
             if (personalIdentityNumber == null)
             {
                 return false;
-            } 
+            }
 
             return _personalIdentityNumber == personalIdentityNumber.ToString("yyyyMMdd-xxxx");
         }
@@ -153,76 +153,6 @@
             }
         }
 
-        private bool TryParseSeparator()
-        {    
-            if (_personalIdentityNumber.Length == 10)
-            {
-                _personalIdentityNumber.Insert(6, "-");
-            }
-            else if (_personalIdentityNumber.Length == 12)
-            {
-                _personalIdentityNumber.Insert(8, "-");
-            }
-
-            if (_personalIdentityNumber.Length == 11)
-            {
-                _separator = _personalIdentityNumber.ElementAt(6);
-            }
-            else if(_personalIdentityNumber.Length == 13)
-            {
-                _separator = _personalIdentityNumber.ElementAt(8);
-            }
-
-            if (_separator == '-' || _separator == '+')
-            {
-                return true;
-            }
-
-            return false;
-        }        
-
-        private bool TryParseDateOfBirth()
-        {
-            if (_personalIdentityNumber.Length == 11)
-            {
-                var centuryDigits = GetCenturyDigits();
-
-                _personalIdentityNumber = centuryDigits.ToString() + _personalIdentityNumber;
-            }
-
-            DateTime dateOfBirth;
-
-            if (!DateTime.TryParseExact(_personalIdentityNumber.Substring(0, 8), "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfBirth))
-            {
-                return false;
-                
-            }
-
-            _dateOfBirth = dateOfBirth;
-
-            return true;
-        }
-
-        private bool TryParseSerialNumber()
-        {
-            if (_personalIdentityNumber.Length != 13)
-            {
-                return false;
-            }
-
-            if (short.TryParse(_personalIdentityNumber.Substring(9), out _serialNumber))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool IsValidCheckDigit()
-        {
-            return Validator.IsValid(_personalIdentityNumber.Remove(8, 1).Substring(2));
-        }
-
         private int GetCenturyDigits()
         {
             var thisYear = DateTime.Today.Year % 100;
@@ -241,13 +171,82 @@
             {
                 century = thisCentury - 1;
             }
-        
+
             if (_separator == '+')
             {
                 century--;
             }
 
             return century;
+        }
+
+        private bool IsValidCheckDigit()
+        {
+            return Validator.IsValid(_personalIdentityNumber.Remove(8, 1).Substring(2));
+        }
+
+        private bool TryParseDateOfBirth()
+        {
+            if (_personalIdentityNumber.Length == 11)
+            {
+                var centuryDigits = GetCenturyDigits();
+
+                _personalIdentityNumber = centuryDigits.ToString() + _personalIdentityNumber;
+            }
+
+            DateTime dateOfBirth;
+
+            if (!DateTime.TryParseExact(_personalIdentityNumber.Substring(0, 8), "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOfBirth))
+            {
+                return false;
+            }
+
+            _dateOfBirth = dateOfBirth;
+
+            return true;
+        }
+
+        private bool TryParseSeparator()
+        {
+            if (_personalIdentityNumber.Length == 10)
+            {
+                _personalIdentityNumber.Insert(6, "-");
+            }
+            else if (_personalIdentityNumber.Length == 12)
+            {
+                _personalIdentityNumber.Insert(8, "-");
+            }
+
+            if (_personalIdentityNumber.Length == 11)
+            {
+                _separator = _personalIdentityNumber.ElementAt(6);
+            }
+            else if (_personalIdentityNumber.Length == 13)
+            {
+                _separator = _personalIdentityNumber.ElementAt(8);
+            }
+
+            if (_separator == '-' || _separator == '+')
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool TryParseSerialNumber()
+        {
+            if (_personalIdentityNumber.Length != 13)
+            {
+                return false;
+            }
+
+            if (short.TryParse(_personalIdentityNumber.Substring(9), out _serialNumber))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>

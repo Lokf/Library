@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lokf.Library.Infrastructure
 {
@@ -13,7 +9,7 @@ namespace Lokf.Library.Infrastructure
         private readonly Guid _entityId;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Entity"/> class. 
+        /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         /// <param name="aggregateRoot">The aggregate Root.</param>
         /// <param name="entityId">The entity ID.</param>

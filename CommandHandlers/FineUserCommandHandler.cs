@@ -1,7 +1,7 @@
 ﻿namespace Lokf.Library.CommandHandlers
 {
-    using Infrastructure;
     using Contracts.Commands;
+    using Infrastructure;
     using Users;
 
     public class FineUserCommandHandler : ICommandHandler<FineUserCommand>

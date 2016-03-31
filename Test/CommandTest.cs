@@ -1,46 +1,33 @@
 ﻿namespace Lokf.Library.Test
 {
+    using Domain.Utils;
     using Infrastructure;
+    using Lendings;
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Users;
 
     public abstract class CommandTest<TCommand>
         where TCommand : ICommand
     {
+        protected Exception CaughtException;
         private InMemoryEventStore _eventStore;
 
-        protected IEventStoreUnitOfWork UnitOfWork;
+        private LibraryUnitOfWork _unitOfWork;
 
-        protected Exception CaughtException;
+        protected IDomainRepository<Lending> Lendings { get { return _unitOfWork.Lendings; } }
 
-        protected virtual IEnumerable<IDomainEvent> Given()
-        {
-            yield break;
-        }
-
-        protected abstract TCommand When();
-
-        protected abstract ICommandHandler<TCommand> OnHandler();
-
-        protected virtual IEnumerable<IDomainEvent> ExpectedEvents()
-        {
-            yield break;
-        }
-
-        protected virtual Exception ExpectedException()
-        {
-            return null;
-        }
+        protected IDomainRepository<User> Users { get { return _unitOfWork.Users; } }
 
         [Test]
         public void SetUp()
         {
             _eventStore = new InMemoryEventStore(Given());
 
-            UnitOfWork = new EventStoreUnitOfWork(_eventStore);
+            _unitOfWork = new LibraryUnitOfWork(_eventStore, new ChangeTracker());
 
             CaughtException = null;
 
@@ -69,54 +56,26 @@
             {
                 CompareExceptions(ExpectedException(), CaughtException);
             }
-        }       
-
-        private ICommandHandler<TCommand> WrapCommandHandlerInTransaction(ICommandHandler<TCommand> commandHandler)
-        {
-            return new TransactionalCommandHandler<TCommand>(commandHandler, UnitOfWork);
         }
 
-
-        private void CompareExceptions(Exception expected, Exception actual)
+        protected virtual IEnumerable<IDomainEvent> ExpectedEvents()
         {
-            string message;
-
-            if (expected == null)
-            {
-                if (actual == null)
-                {
-                    return;
-                }
-
-                message = $"Did not expect any exception, but an exception of type {actual.GetType()} was thrown.";
-
-                Assert.Fail(message);                
-            }
-
-            if (actual == null)
-            {
-                message = $"An exception of type {expected.GetType()} was expected but no exception was thrown.";
-
-                Assert.Fail(message);
-            }            
-
-            message = $"Expected an exception of type {expected.GetType()} but an exception of type {actual.GetType()} was thrown";
-
-            Assert.AreEqual(expected.GetType(), actual.GetType());
+            yield break;
         }
 
-        private void CompareEvents(IReadOnlyCollection<IDomainEvent> expected, IReadOnlyCollection<IDomainEvent> actual)
+        protected virtual Exception ExpectedException()
         {
-            var message = $"Expected {expected.Count} {(expected.Count == 1 ? "event" : "events")} but {actual.Count} {(expected.Count == 1 ? "event" : "events")} occured.";
-
-            Assert.AreEqual(expected.Count, actual.Count, message);
-
-            var eventPairs = expected.Zip(actual, (e, a) => new { Expected = e, Actual = a });
-            foreach (var eventPair in eventPairs)
-            {
-                CompareEvent(eventPair.Expected, eventPair.Actual);
-            }
+            return null;
         }
+
+        protected virtual IEnumerable<IDomainEvent> Given()
+        {
+            yield break;
+        }
+
+        protected abstract ICommandHandler<TCommand> OnHandler();
+
+        protected abstract TCommand When();
 
         private void CompareEvent(IDomainEvent expected, IDomainEvent actual)
         {
@@ -142,6 +101,52 @@
                 message = $"Expected { expectedType.Name }.{ propertyInfo.Name } to be { expectedValue } but was { actualValue }";
                 Assert.AreEqual(expectedValue, actualValue, message);
             }
+        }
+
+        private void CompareEvents(IReadOnlyCollection<IDomainEvent> expected, IReadOnlyCollection<IDomainEvent> actual)
+        {
+            var message = $"Expected {expected.Count} {(expected.Count == 1 ? "event" : "events")} but {actual.Count} {(expected.Count == 1 ? "event" : "events")} occured.";
+
+            Assert.AreEqual(expected.Count, actual.Count, message);
+
+            var eventPairs = expected.Zip(actual, (e, a) => new { Expected = e, Actual = a });
+            foreach (var eventPair in eventPairs)
+            {
+                CompareEvent(eventPair.Expected, eventPair.Actual);
+            }
+        }
+
+        private void CompareExceptions(Exception expected, Exception actual)
+        {
+            string message;
+
+            if (expected == null)
+            {
+                if (actual == null)
+                {
+                    return;
+                }
+
+                message = $"Did not expect any exception, but an exception of type {actual.GetType()} was thrown.";
+
+                Assert.Fail(message);
+            }
+
+            if (actual == null)
+            {
+                message = $"An exception of type {expected.GetType()} was expected but no exception was thrown.";
+
+                Assert.Fail(message);
+            }
+
+            message = $"Expected an exception of type {expected.GetType()} but an exception of type {actual.GetType()} was thrown";
+
+            Assert.AreEqual(expected.GetType(), actual.GetType());
+        }
+
+        private ICommandHandler<TCommand> WrapCommandHandlerInTransaction(ICommandHandler<TCommand> commandHandler)
+        {
+            return new TransactionalCommandHandler<TCommand>(commandHandler, _unitOfWork);
         }
     }
 }

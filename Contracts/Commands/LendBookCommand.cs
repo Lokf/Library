@@ -15,10 +15,10 @@
             LendDate = lendDate;
         }
 
-        public Guid UserId { get; }
-
         public Guid BookId { get; }
 
         public DateTime LendDate { get; }
+
+        public Guid UserId { get; }
     }
 }

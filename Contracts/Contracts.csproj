@@ -53,6 +53,7 @@
     <Compile Include="Events\UserRegisteredEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetUserByIdQuery.cs" />
+    <Compile Include="Reports\UserFineReport.cs" />
     <Compile Include="Reports\UserReport.cs" />
   </ItemGroup>
   <ItemGroup>

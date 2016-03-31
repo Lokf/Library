@@ -5,12 +5,12 @@
 
     public sealed class UserRegisteredEvent : DomainEvent
     {
-        public string PersonalIdentityNumber { get; }
-
-        public UserRegisteredEvent(Guid userId, string personalIdentityNumber) 
+        public UserRegisteredEvent(Guid userId, string personalIdentityNumber)
             : base(userId)
         {
             PersonalIdentityNumber = personalIdentityNumber;
         }
+
+        public string PersonalIdentityNumber { get; }
     }
 }

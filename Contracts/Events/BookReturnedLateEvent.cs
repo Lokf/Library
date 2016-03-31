@@ -13,8 +13,8 @@
             DueDate = dueDate;
         }
 
-        public DateTime ReturnDate { get; }
-
         public DateTime DueDate { get; }
+
+        public DateTime ReturnDate { get; }
     }
 }

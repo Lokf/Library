@@ -1,7 +1,6 @@
 ﻿namespace Lokf.Library.Services
 {
     using System;
-    using Utils;
 
     /// <summary>
     /// Calculator for calculating the latest return date.

@@ -32,6 +32,6 @@
         /// <summary>
         /// Gets or sets the version of the aggregate root after the event was raised.
         /// </summary>
-        int IDomainEvent.Version { get; set; }  
+        int IDomainEvent.Version { get; set; }
     }
 }

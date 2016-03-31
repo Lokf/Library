@@ -67,19 +67,24 @@
     <Compile Include="CommandTest.cs" />
     <Compile Include="July10th2014.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scenarios\When_a_book_is_lent.cs" />
-    <Compile Include="Scenarios\When_a_book_is_returned_in_time.cs" />
-    <Compile Include="Scenarios\When_a_book_is_returned_late.cs" />
-    <Compile Include="Scenarios\When_a_book_not_lent_is_returned.cs" />
-    <Compile Include="Scenarios\When_a_non_existing_user_is_fined.cs" />
-    <Compile Include="Scenarios\When_a_payment_is_made.cs" />
-    <Compile Include="Scenarios\When_a_payment_is_made_by_a_non_existing_user.cs" />
-    <Compile Include="Scenarios\When_a_returned_book_is_returned.cs" />
-    <Compile Include="Scenarios\When_a_too_large_payment_is_made.cs" />
-    <Compile Include="Scenarios\When_a_user_in_debt_is_lent_a_book.cs" />
-    <Compile Include="Scenarios\When_a_user_is_fined.cs" />
-    <Compile Include="Scenarios\When_a_user_is_registered.cs" />
-    <Compile Include="Scenarios\When_a_user_with_a_paid_of_debt_is_lent_a_book.cs" />
+    <Compile Include="Scenarios\A book is lent\Given_a_registered_user.cs" />
+    <Compile Include="Scenarios\A book is lent\Given_a_user_in_debt.cs" />
+    <Compile Include="Scenarios\A book is lent\Given_a_user_with_a_paid_off_debt.cs" />
+    <Compile Include="Scenarios\A book is lent\When_a_book_is_lent.cs" />
+    <Compile Include="Scenarios\A book is returned\Given_a_already_returned_book.cs" />
+    <Compile Include="Scenarios\A book is returned\Given_a_book_lent_yielding_the_return_to_be_in_time.cs" />
+    <Compile Include="Scenarios\A book is returned\Given_a_book_lent_yielding_the_return_to_be_too_late.cs" />
+    <Compile Include="Scenarios\A book is returned\Given_a_book_not_lent.cs" />
+    <Compile Include="Scenarios\A book is returned\When_a_book_is_returned.cs" />
+    <Compile Include="Scenarios\A payment is made\Given_a_debt_yielding_the_payment_to_be_too_large.cs" />
+    <Compile Include="Scenarios\A payment is made\Given_a_user_with_a_matching_debt.cs" />
+    <Compile Include="Scenarios\A payment is made\Given_no_registered_user.cs" />
+    <Compile Include="Scenarios\A payment is made\When_a_payment_is_made.cs" />
+    <Compile Include="Scenarios\A user is fined\Given_a_registered_user.cs" />
+    <Compile Include="Scenarios\A user is fined\Give_no_registered_user.cs" />
+    <Compile Include="Scenarios\A user is fined\When_a_user_is_fined.cs" />
+    <Compile Include="Scenarios\A user is registered\Given_no_registered_user.cs" />
+    <Compile Include="Scenarios\A user is registered\When_a_user_is_registered.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommandHandlers\CommandHandlers.csproj">

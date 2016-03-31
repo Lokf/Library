@@ -1,18 +1,17 @@
 ﻿namespace Lokf.Library.CommandHandlers
 {
-    using Infrastructure;
     using Contracts.Commands;
-    using Services;
+    using Infrastructure;
     using Lendings;
+    using Services;
     using Users;
 
     public class LendBookCommandHandler : ICommandHandler<LendBookCommand>
     {
+        private readonly IDueDateCalculator _dueDateCalculator;
         private readonly IDomainRepository<Lending> _lendingRepository;
 
         private readonly IDomainRepository<User> _userRepositroy;
-
-        private readonly IDueDateCalculator _dueDateCalculator;
 
         public LendBookCommandHandler(IDomainRepository<User> userRepository, IDomainRepository<Lending> lendingRepository, IDueDateCalculator dueDateCalculator)
         {

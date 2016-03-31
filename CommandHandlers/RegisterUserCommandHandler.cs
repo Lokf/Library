@@ -1,7 +1,7 @@
 ﻿namespace Lokf.Library.CommandHandlers
 {
-    using Infrastructure;
     using Contracts.Commands;
+    using Infrastructure;
     using Users;
 
     /// <summary>
@@ -24,7 +24,8 @@
         /// Handles the command.
         /// </summary>
         /// <param name="command">The command to handle.</param>
-        public void Handle(RegisterUserCommand command) {
+        public void Handle(RegisterUserCommand command)
+        {
             var user = User.RegisterUser(command.AggregateId, PersonalIdentityNumber.Parse(command.PersonalIdentityNumber));
 
             _repository.Add(user);

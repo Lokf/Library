@@ -2,10 +2,6 @@
 {
     using Infrastructure;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class MakePaymentCommand : Command
     {
@@ -20,6 +16,5 @@
         public decimal Amount { get; }
 
         public DateTime Date { get; }
-
     }
 }

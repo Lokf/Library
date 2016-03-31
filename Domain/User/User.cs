@@ -1,15 +1,15 @@
 ﻿namespace Lokf.Library.Users
 {
-    using Infrastructure;
     using Contracts.Events;
+    using Infrastructure;
+    using Lendings;
+    using Services;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Lendings;
-    using Services;
 
     /// <summary>
-    /// The aggregate root of the user aggregate. Provides functionality for managing users, 
+    /// The aggregate root of the user aggregate. Provides functionality for managing users,
     /// such as registration, user details and debt handling.
     /// </summary>
     public sealed class User : AggregateRoot
@@ -22,7 +22,7 @@
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
         /// <param name="userId">The user ID.</param>
-        public User(Guid userId) 
+        public User(Guid userId)
             : base(userId)
         {
             RegisterEventHandlers();
@@ -52,6 +52,16 @@
             RaiseEvent(userFinedEvent);
         }
 
+        public Lending LendBook(Guid lendingId, Guid bookId, DateTime lendDate, IDueDateCalculator dueDataCalculator)
+        {
+            if (IsInDebt())
+            {
+                throw new Exception("Cant borrow when i debt");
+            }
+
+            return Lending.LendBook(lendingId, AggregateId, bookId, lendDate, dueDataCalculator);
+        }
+
         public void MakePayment(decimal amount, DateTime date)
         {
             if (amount > OutstandingDebt())
@@ -64,36 +74,14 @@
             RaiseEvent(paymentMadeEvent);
         }
 
-        public Lending LendBook(Guid lendingId, Guid bookId, DateTime lendDate, IDueDateCalculator dueDataCalculator)
-        {
-            if (IsInDebt())
-            {
-                throw new Exception("Cant borrow when i debt");
-            }
-
-            return Lending.LendBook(lendingId, AggregateId, bookId, lendDate, dueDataCalculator);
-        }
-
-        private decimal OutstandingDebt()
-        {
-            return _fines.Sum(x => x.Amount) - _payments.Sum(x => x.Amount);
-        }
-
         private bool IsInDebt()
         {
             return OutstandingDebt() > 0;
         }
 
-        private void RegisterEventHandlers()
+        private void OnPaymentMade(PaymentMadeEvent @event)
         {
-            Handles<UserRegisteredEvent>(OnUserRegistered);
-            Handles<UserFinedEvent>(OnUserFined);
-            Handles<PaymentMadeEvent>(OnPaymentMade);
-        }
-
-        private void OnUserRegistered(UserRegisteredEvent @event)
-        {
-
+            _payments.Add(new Payment(@event.Amount, @event.Date));
         }
 
         private void OnUserFined(UserFinedEvent @event)
@@ -101,9 +89,20 @@
             _fines.Add(new Fine(@event.LendingId, @event.Amount));
         }
 
-        private void OnPaymentMade(PaymentMadeEvent @event)
+        private void OnUserRegistered(UserRegisteredEvent @event)
         {
-            _payments.Add(new Payment(@event.Amount, @event.Date));
+        }
+
+        private decimal OutstandingDebt()
+        {
+            return _fines.Sum(x => x.Amount) - _payments.Sum(x => x.Amount);
+        }
+
+        private void RegisterEventHandlers()
+        {
+            Handles<UserRegisteredEvent>(OnUserRegistered);
+            Handles<UserFinedEvent>(OnUserFined);
+            Handles<PaymentMadeEvent>(OnPaymentMade);
         }
     }
 }

@@ -1,20 +1,27 @@
 ﻿namespace Lokf.Library.Lendings
 {
-    using Infrastructure;
     using Contracts.Events;
-    using System;
+    using Infrastructure;
     using Services;
+    using System;
 
     public sealed class Lending : AggregateRoot
     {
+        private DateTime _dueDate;
         private Status _status = Status.None;
 
-        private DateTime _dueDate;
-
-        public Lending(Guid lendingId) 
+        public Lending(Guid lendingId)
             : base(lendingId)
         {
             RegisterEventHandlers();
+        }
+
+        private enum Status
+        {
+            None = 0,
+            Lent = 1,
+            Returned = 2,
+            Annulled = 3
         }
 
         public static Lending LendBook(Guid lendingId, Guid userId, Guid bookId, DateTime lendDate, IDueDateCalculator dueDateCalculator)
@@ -45,11 +52,11 @@
             }
         }
 
-        private void RegisterEventHandlers()
+        private void OnBookLent(BookLentEvent @event)
         {
-            Handles<BookLentEvent>(OnBookLent);
-            Handles<BookReturnedInTimeEvent>(OnBookReturnedInTime);
-            Handles<BookReturnedLateEvent>(OnBookReturnedLate);
+            _status = Status.Lent;
+
+            _dueDate = @event.DueDate;
         }
 
         private void OnBookReturnedInTime(BookReturnedInTimeEvent @event)
@@ -62,19 +69,11 @@
             _status = Status.Returned;
         }
 
-        private void OnBookLent(BookLentEvent @event)
+        private void RegisterEventHandlers()
         {
-            _status = Status.Lent;
-
-            _dueDate = @event.DueDate;
-        }
-
-        private enum Status
-        {
-            None = 0,
-            Lent = 1,
-            Returned = 2,
-            Annulled = 3
+            Handles<BookLentEvent>(OnBookLent);
+            Handles<BookReturnedInTimeEvent>(OnBookReturnedInTime);
+            Handles<BookReturnedLateEvent>(OnBookReturnedLate);
         }
     }
 }

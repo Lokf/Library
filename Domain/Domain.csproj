@@ -53,6 +53,7 @@
     <Compile Include="User\User.cs" />
     <Compile Include="Utils\DateProvider.cs" />
     <Compile Include="Utils\IDateProvider.cs" />
+    <Compile Include="Utils\LibraryUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">

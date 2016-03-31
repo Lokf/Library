@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lokf.Library.Users
 {
@@ -15,8 +11,8 @@ namespace Lokf.Library.Users
             Amount = amount;
         }
 
-        public Guid LendingId { get; }
+        public decimal Amount { get; }
 
-        public decimal Amount { get; }        
+        public Guid LendingId { get; }
     }
 }

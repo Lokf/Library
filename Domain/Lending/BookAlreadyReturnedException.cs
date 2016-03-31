@@ -8,25 +8,21 @@
     {
         public BookAlreadyReturnedException()
         {
-
         }
 
         public BookAlreadyReturnedException(string message)
-            :base(message)
+            : base(message)
         {
-
         }
 
         public BookAlreadyReturnedException(string message, Exception inner)
             : base(message, inner)
         {
-
         }
 
         protected BookAlreadyReturnedException(SerializationInfo info, StreamingContext context)
-            : base (info, context)
+            : base(info, context)
         {
-
         }
     }
 }

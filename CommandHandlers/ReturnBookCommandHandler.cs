@@ -1,12 +1,7 @@
 ﻿namespace Lokf.Library.CommandHandlers
 {
-    using Infrastructure;
     using Contracts.Commands;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using Infrastructure;
     using Lendings;
 
     public class ReturnBookCommandHandler : ICommandHandler<ReturnBookCommand>
@@ -25,5 +20,4 @@
             lending.ReturnBook(command.ReturnDate);
         }
     }
-
 }

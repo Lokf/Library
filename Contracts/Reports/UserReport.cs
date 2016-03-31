@@ -11,8 +11,8 @@
             PersonalIdentityNumber = personalIdentityNumber;
         }
 
-        public Guid UserId { get; }
-
         public string PersonalIdentityNumber { get; }
+
+        public Guid UserId { get; }
     }
 }
