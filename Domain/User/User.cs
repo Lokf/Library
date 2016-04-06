@@ -33,7 +33,7 @@
         /// </summary>
         /// <param name="userId">The user ID.</param>
         /// <param name="personalIdentityNumber">The personal identity number.</param>
-        /// <returns></returns>
+        /// <returns>The newly registered user.</returns>
         public static User RegisterUser(Guid userId, PersonalIdentityNumber personalIdentityNumber)
         {
             var user = new User(userId);
@@ -45,6 +45,11 @@
             return user;
         }
 
+        /// <summary>
+        /// Fines a user.
+        /// </summary>
+        /// <param name="lendingId">The lending ID causing the fine.</param>
+        /// <param name="amount">The amount.</param>
         public void FineUser(Guid lendingId, decimal amount)
         {
             var userFinedEvent = new UserFinedEvent(AggregateId, lendingId, amount);
@@ -52,6 +57,14 @@
             RaiseEvent(userFinedEvent);
         }
 
+        /// <summary>
+        /// Lends a book.
+        /// </summary>
+        /// <param name="lendingId">The lending ID.</param>
+        /// <param name="bookId">The book ID.</param>
+        /// <param name="lendDate">The lend date.</param>
+        /// <param name="dueDataCalculator">The due date calculator.</param>
+        /// <returns>The lending.</returns>
         public Lending LendBook(Guid lendingId, Guid bookId, DateTime lendDate, IDueDateCalculator dueDataCalculator)
         {
             if (IsInDebt())
@@ -62,6 +75,11 @@
             return Lending.LendBook(lendingId, AggregateId, bookId, lendDate, dueDataCalculator);
         }
 
+        /// <summary>
+        /// Makes a payment.
+        /// </summary>
+        /// <param name="amount">The amount.</param>
+        /// <param name="date">The date of the payment.</param>
         public void MakePayment(decimal amount, DateTime date)
         {
             if (amount > OutstandingDebt())

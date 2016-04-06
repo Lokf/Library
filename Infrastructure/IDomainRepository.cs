@@ -5,7 +5,7 @@
     /// <summary>
     /// Domain repository for event sourced objects.
     /// </summary>
-    /// <typeparam name="TEventSourced">The event sourced type.</typeparam>
+    /// <typeparam name="TAggregate">The event sourced type.</typeparam>
     public interface IDomainRepository<TAggregate>
         where TAggregate : AggregateRoot
     {
@@ -16,7 +16,7 @@
         void Add(TAggregate aggregate);
 
         /// <summary>
-        /// Gets the aggreagate by its ID.
+        /// Gets the aggregate by its ID.
         /// </summary>
         /// <param name="aggregateId">The aggregate ID.</param>
         /// <returns>The aggregate.</returns>

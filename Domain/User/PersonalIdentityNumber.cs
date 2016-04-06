@@ -1,6 +1,7 @@
 ﻿namespace Lokf.Library.Users
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
 
@@ -29,6 +30,7 @@
         /// <param name="dateOfBirth">The date of birth.</param>
         /// <param name="serialNumber">The serial number (xxxx).</param>
         /// <param name="separator">The separator, either "-" or "+".</param>
+        [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Format string.")]
         private PersonalIdentityNumber(string personalIdentityNumber, DateTime dateOfBirth, short serialNumber, char separator)
         {
             _personalIdentityNumber = personalIdentityNumber;
@@ -37,6 +39,11 @@
             _separator = separator;
         }
 
+        /// <summary>
+        /// Parses a string into a personal identity number.
+        /// </summary>
+        /// <param name="personalIdentityNumber">The string representation of a personal identity number.</param>
+        /// <returns>The personal identity number.</returns>
         public static PersonalIdentityNumber Parse(string personalIdentityNumber)
         {
             PersonalIdentityNumber result;
@@ -91,6 +98,11 @@
             return true;
         }
 
+        /// <summary>
+        /// Compares if this instance is equal to <paramref name="obj"/>.
+        /// </summary>
+        /// <param name="obj">The other object to compare equality to.</param>
+        /// <returns>True if they are equal. Otherwise false.</returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -103,6 +115,11 @@
             return Equals(personalIdentityNumber);
         }
 
+        /// <summary>
+        /// Compares if this instance is equal to <paramref name="personalIdentityNumber"/>.
+        /// </summary>
+        /// <param name="personalIdentityNumber">The other personal identity number to compare equality to.</param>
+        /// <returns>True if they are equal. Otherwise false.</returns>
         public bool Equals(PersonalIdentityNumber personalIdentityNumber)
         {
             if (personalIdentityNumber == null)
@@ -113,6 +130,10 @@
             return _personalIdentityNumber == personalIdentityNumber.ToString("yyyyMMdd-xxxx");
         }
 
+        /// <summary>
+        /// Gets the hash code.
+        /// </summary>
+        /// <returns>The hash code.</returns>
         public override int GetHashCode()
         {
             return _personalIdentityNumber.GetHashCode();
@@ -122,6 +143,7 @@
         /// Returns the default string representation of the personal identity number (yyMMdd-xxxx).
         /// </summary>
         /// <returns>The string representation of the personal identity number.</returns>
+        [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Format string.")]
         public override string ToString()
         {
             return ToString("yyMMdd-xxxx");

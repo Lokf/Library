@@ -6,7 +6,7 @@
 
     /// <summary>
     /// Base class for all aggregate roots. Provides functionality for event sourcing,
-    /// i.e. rebuilding an aggregate from previous events and rasing new events.
+    /// i.e. rebuilding an aggregate from previous events and raising new events.
     /// </summary>
     public abstract class AggregateRoot : IEventSourced, IRootEntity
     {
@@ -96,7 +96,7 @@
         /// Raises an event. The event is applied to the aggregate using the appropriate event handler
         /// and added to the list of uncommitted events.
         /// </summary>
-        /// <param name="@event">The event to be raised.</param>
+        /// <param name="event">The event to be raised.</param>
         protected void RaiseEvent(IDomainEvent @event)
         {
             ApplyEvent(@event);

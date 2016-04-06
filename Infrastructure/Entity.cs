@@ -1,7 +1,10 @@
-﻿using System;
-
-namespace Lokf.Library.Infrastructure
+﻿namespace Lokf.Library.Infrastructure
 {
+    using System;
+
+    /// <summary>
+    /// An entity is uniquely identified by its ID. It can handle its own events.
+    /// </summary>
     public abstract class Entity
     {
         private readonly IRootEntity _aggregateRoot;

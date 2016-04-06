@@ -7,8 +7,8 @@
     /// <typeparam name="TCommand">The command type.</typeparam>
     public class TransactionalCommandHandler<TCommand> : ICommandHandler<TCommand> where TCommand : ICommand
     {
-        public readonly ICommandHandler<TCommand> _commandHandler;
-        public readonly IUnitOfWork _unitOfWork;
+        private readonly ICommandHandler<TCommand> _commandHandler;
+        private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TransactionalCommandHandler{TCommand}"/> class.

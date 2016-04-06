@@ -5,11 +5,18 @@
     using Services;
     using System;
 
+    /// <summary>
+    /// Represents a lending. It is the aggregate root of the lending aggregate.
+    /// </summary>
     public sealed class Lending : AggregateRoot
     {
         private DateTime _dueDate;
         private Status _status = Status.None;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Lending"/> class.
+        /// </summary>
+        /// <param name="lendingId">The lending ID.</param>
         public Lending(Guid lendingId)
             : base(lendingId)
         {
@@ -24,6 +31,15 @@
             Annulled = 3
         }
 
+        /// <summary>
+        /// A book is lent.
+        /// </summary>
+        /// <param name="lendingId">The lending ID.</param>
+        /// <param name="userId">The user ID.</param>
+        /// <param name="bookId">The book ID.</param>
+        /// <param name="lendDate">The date the book was lent.</param>
+        /// <param name="dueDateCalculator">The due date calculator.</param>
+        /// <returns>The lending.</returns>
         public static Lending LendBook(Guid lendingId, Guid userId, Guid bookId, DateTime lendDate, IDueDateCalculator dueDateCalculator)
         {
             var lending = new Lending(lendingId);
@@ -35,6 +51,10 @@
             return lending;
         }
 
+        /// <summary>
+        /// The book is returned.
+        /// </summary>
+        /// <param name="returnDate">The date the book is returned.</param>
         public void ReturnBook(DateTime returnDate)
         {
             if (_status == Status.Returned)

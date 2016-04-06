@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// A domain event is raised by an aggregate and represent something that has happend.
+    /// A domain event is raised by an aggregate and represent something that has happened.
     /// </summary>
     public interface IDomainEvent
     {

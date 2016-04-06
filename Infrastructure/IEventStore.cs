@@ -32,7 +32,7 @@
 
         /// <summary>
         /// Saves the events and stores them keyed by the aggregate ID. If the version of the aggregate in the event store
-        /// differs from the expected version an optmistic concurreny exception is thrown.
+        /// differs from the expected version an optimistic concurrency exception is thrown.
         /// </summary>
         /// <param name="aggregateId">The aggregate ID.</param>
         /// <param name="events">The events to store.</param>

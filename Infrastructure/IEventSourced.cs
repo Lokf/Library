@@ -10,7 +10,7 @@
     public interface IEventSourced
     {
         /// <summary>
-        /// The aggregate ID.
+        /// Gets the aggregate ID.
         /// </summary>
         Guid AggregateId { get; }
 
@@ -32,7 +32,7 @@
         /// <summary>
         /// Loads an event sourced object to its current state by replaying the historical events.
         /// </summary>
-        /// <param name="history"></param>
+        /// <param name="history">The history of previous events.</param>
         void LoadFromHistory(IEnumerable<IDomainEvent> history);
     }
 }

@@ -18,7 +18,7 @@
 
         private LibraryUnitOfWork _unitOfWork;
 
-        protected IDomainRepository<Lending> Lendings { get { return _unitOfWork.Lendings; } }
+        protected IDomainRepository<Lending> Lendings { get { return _unitOfWork.Lending; } }
 
         protected IDomainRepository<User> Users { get { return _unitOfWork.Users; } }
 
